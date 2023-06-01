@@ -7,17 +7,17 @@ V tomto úkolu si vytvoříme aplikaci, která nám zobrazí aktuální počasí
 K získání dat o počasí budeme používat API zdarma z [open weather map](https://openweathermap.org/api).
 K použití daného API je potřeba se zaregistrovat, a získat tak unikátní ID, které budeš zadávát v URL API. Zaregistruj se tedy na stránce a počkej, až ti přijde e-mail s potvrzením. V emailu uvidíš své API ID a také URL endpoint, který je potřeba použít při získávání dat. API ID si můžeš také zjistit ve svém profilu na stránce OpenWeather, kde si můžeš zakládat i další ID. Měj na paměti, že aktivace klíče po registraci může trvat několik hodin. Mezitím velice doporučuji podívat se na [dokumentaci OpenWeather](https://openweathermap.org/current) a pročíst si v jakém formátu ti data přijdou. 
      
-<img src="ReadmeImages/open_weather_api_email.jpg"/>
+![](ReadmeImages/open_weather_api_email.jpg)
 
 ## Spuštění a struktura aplikace
 
-Udělej si fork tohoto repozitáře a tento fork si naklonuj k sobě. Vše nainstaluješ pomocí spuštění příkazu 
+Vycházej z kódu v tomto repozitáři. Vše nainstaluješ pomocí spuštění příkazu 
 #### `npm install`    
 Po nainstalování spusť aplikaci pomocí 
 #### `npm start`
 Měla bys vidět toto:     
-     
-<img src="ReadmeImages/weather_app_starter.jpg"/>
+
+![](ReadmeImages/weather_app_starter.jpg)
 
 Hlavní html a css je pro tebe už připravené. Prohlédni si obsah složky `src`.     
 V souboru `index.js` probíhá renderování aplikace, není sem potřeba nic přidávat, ani upravovat. V `index.css` je globální stylování, všimni si, že pro základní barvy a styly jsou vytvořené proměnné, které se pak používají skrz celou aplikaci. Kdybychom třeba chtěli změnit barevnou paletu, stačí upravit barvy tady a není potřeba procházet css celé aplikace.      
@@ -32,7 +32,7 @@ Je možné, že základní teplota, kterou open weather posílá bude v kelvinec
 Tvoje API URL by mohlo vypadat nějak takhle:       
 `api.openweathermap.org/data/2.5/weather?q=Prague&units=metric&appid={tve unikatni API ID}`     
 Funkci potom zavoláš v useEffectu, při prvním vyrenderování komponenty App. `App.js` bude vypadat nějak takto: 
-```js
+```jsx
 import React, { useEffect } from "react";
 import "./App.css";
 
@@ -78,7 +78,7 @@ Místo vypisování do konzole teď budeš nastavovat získaná data do stavu za
 ## Zobrazení dat 
 Při správném postupu kroků bys měla teď mít ve stavu uložený objekt, který má takový formát:     
 
-<img src="ReadmeImages/current_weather_data.jpg"/>     
+![](ReadmeImages/current_weather_data.jpg) 
 
 Na obrázku jsou vyznačené hodnoty, které budeš zobrazovat v elementech uvnitř `div.weather__current`. Jak vidíš, některé hodnoty je potřeba před použitím trochu upravit.     
 
@@ -153,7 +153,7 @@ Jako město opět použij `city`, které máš uložené ve stavu. Předej ho do
 Nejdříve si data vypiš do konzole. 
 Předpověď na 5 dní je uváděná po 3 hodinách. Každý den 8 předpovědí, 5 x 8 = 40! V datech získáme tedy pole o 40 položkách s údaji o počasí. 
 
-<img src="ReadmeImages/fetch_forecast_object.jpg"/>   
+![](ReadmeImages/fetch_forecast_object.jpg)
 
 Nám ale stačí pouze jedna předpověď na den, tedy každá osmá. Vytvoř si funkci, která jako parametr bere pole a vrátí nové pole, které bude obsahovat pouze každou 8. položku. Hodit se ti možná bude funkce [filter](https://flexiple.com/javascript-filter-array/). Ale jde to i bez ní :) 
  <details>
@@ -183,7 +183,7 @@ Při fetchování dat o předpovědi místo výpisu do konzole nastav stav `fore
 #### Příprava dat
 Po provedení fetche budeš mít v proměnné `forecast` pole s položkami takového formátu: 
 
-<img src="ReadmeImages/forecast_array_item.jpg"/>     
+![](ReadmeImages/forecast_array_item.jpg)
 
 Opět vidíš vyznačená data, která budeme potřebovat k zobrazení předpovědi počasí. Teplotu už umíš zaokrouhlit a ikonu si už umíš použít, aby se zobrazily tak, jak potřebujeme.     
 Ale ajaj, pod klíčem `dt` je opět ten divný kód. Teď z něj nepotřebujeme hodiny a minuty, ale den v týdnu, datum a měsíc.    
@@ -253,7 +253,7 @@ uvidíš sekci
 #### Advanced build settings    
 Tam si přidej klíč pomocí kliknutí na **New variable**. Klíč musí být se stejným názvem, jako je v souboru .env.        
 
-<img src="ReadmeImages/netlify_env.jpg"/>
+![](ReadmeImages/netlify_env.jpg)
 
 Při odevzdání úkolu v Czechitas portálu dej odkaz na github, ale i na stránku, kterou hostuješ.
 
@@ -261,7 +261,7 @@ Při odevzdání úkolu v Czechitas portálu dej odkaz na github, ale i na strá
 ## Bonus
 Už to vypadá dobře! Velice solidní appka! 
 Pojďme to vzít ještě dál, proč jen tři města? Mám pro tebe připravené pole 50 světových měst, která budeme moct v aplikaci zobrazovat. 
-```    
+```js
 const cities = [
   "Abuja",
   "Amsterdam",
@@ -318,18 +318,18 @@ const cities = [
 Toto pole si překopíruj do aplikace na vhodné místo, například do samostatného souboru ve složce `utils`. Proměnou nezapomeň exportovat.    
 Mohli bychom místa zobrazit pomocí tlačítek, ale to by přece jen bylo trochu nepřehledné. Lepším řešením bude formulářový prvek `<select>`.
 Níže vidíš přípravený HTML kód, který si můžeš překopírovat do aplikace. 
-```
-   <div className="select-wrapper">
-          <select
-            className="select"
-            name="cityselect"
-            id="cityselect"
-            value={"--"}
-            onChange={console.log("select changed")}
-          >
-            <option value={"--"}>city</option>
-          </select>
-        </div>
+```html
+<div className="select-wrapper">
+  <select
+    className="select"
+    name="cityselect"
+    id="cityselect"
+    value={"--"}
+    onChange={console.log("select changed")}
+  >
+    <option value={"--"}>city</option>
+  </select>
+</div>
 
 ```
 
